@@ -49,11 +49,7 @@ public class PrefDataStore {
                 .map(prefs -> {
                     var prefKey = PreferencesKeys.stringKey(key);
 
-
-
                     return Optional.ofNullable(prefs.get(prefKey));
-
-
 
                 })
                 .blockingFirst();

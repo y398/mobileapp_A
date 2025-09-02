@@ -46,13 +46,18 @@ public class MainActivity extends AppCompatActivity {
             prefDataStore.setString("name", text);
         });
 
-    }
+        binding.LoadButton.setOnClickListener( view -> {
+            prefDataStore.getString("name")
+                    .ifPresent(name -> binding.textView.setText(name));
+        });
 
+    }
+    @Override
     protected void onStart() {
         super.onStart();
 
         prefDataStore.getString("name")
-                .ifPresent(s -> binding.textView.setText(s));
+                .ifPresent(name -> binding.textView.setText(name));
     }
 
 }
