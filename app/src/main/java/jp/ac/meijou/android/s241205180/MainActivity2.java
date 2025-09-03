@@ -4,10 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.Optional;
 
 import jp.ac.meijou.android.s241205180.databinding.ActivityMain2Binding;
 import jp.ac.meijou.android.s241205180.databinding.ActivityMainBinding;
@@ -46,9 +51,36 @@ public class MainActivity2 extends AppCompatActivity {
 
         binding.buttonSend.setOnClickListener( view -> {
             var message = binding.editTextText.getText().toString();
-            var intent = new Intent(this, MainActivity.class);
+            var intent = new Intent(this, MainActivity4.class);
             intent.putExtra("message", message);
             startActivity(intent);
         });
+
+        binding.buttonLaunch.setOnClickListener( view -> {
+            var intent = new Intent(this, MainActivity4.class);
+            getActivityResult.launch(intent);
+        });
     }
+
+    private ActivityResultLauncher<Intent> getActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                switch (result.getResultCode()) {
+                    case RESULT_OK:
+                        Optional.ofNullable(result.getData())
+                                .map(data -> data.getStringExtra("ret"))
+                                .map(text -> "Result: " + text)
+                                .ifPresent(text -> binding.resultTextView.setText(text));
+                        break;
+                    case RESULT_CANCELED:
+                        binding.resultTextView.setText("Result: canceled");
+                        break;
+
+                    default:
+                        binding.resultTextView.setText("Result: unknown(" + result.getResultCode() + ")");
+                        break;
+                }
+            }
+
+    );
 }
