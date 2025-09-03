@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                     .ifPresent(name -> binding.textView.setText(name));
         });
 
+
+
+
     }
     @Override
     protected void onStart() {
@@ -58,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
 
         prefDataStore.getString("name")
                 .ifPresent(name -> binding.textView.setText(name));
+
+        // インテントからメッセージを取得して表示
+        var message = getIntent().getStringExtra("message");
+        if (message != null) {
+            binding.textView.setText(message);
+        }
     }
 
 }
