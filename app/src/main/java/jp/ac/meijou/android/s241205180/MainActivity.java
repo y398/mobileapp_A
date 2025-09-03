@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                     .ifPresent(name -> binding.textView.setText(name));
         });
 
+
+
+
     }
     @Override
     protected void onStart() {
