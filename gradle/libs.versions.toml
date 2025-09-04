@@ -30,6 +30,7 @@ moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 androidx-room = { id = "androidx.room", version.ref = "room" }
